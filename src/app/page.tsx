@@ -12,10 +12,10 @@ export default function Home() {
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-blue-100">
             Launch your online store in minutes without inventory, warehousing, or logistics.
-            Access 52+ premium products, set your prices, and start selling today.
+            Access 1000s of premium products, set your prices, and start selling today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="#signup" className="bg-white text-btab-primary hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg transition-colors text-lg">
+            <Link href="https://dashboard.btab.app/register" className="bg-white text-btab-primary hover:bg-gray-100 font-semibold px-8 py-4 rounded-lg transition-colors text-lg">
               Start Selling Today
             </Link>
             <Link href="/how-it-works" className="border-2 border-white text-white hover:bg-white hover:text-btab-primary font-semibold px-8 py-4 rounded-lg transition-all text-lg">
@@ -38,7 +38,7 @@ export default function Home() {
               <h3 className="heading-sm mb-4">Select</h3>
               <p className="text-gray-600 mb-4">Browse Our Curated Catalog</p>
               <p className="text-gray-600">
-                Choose from 52+ premium products across music equipment, keyboards, electronics, and more.
+                Choose from 1000s of premium products across music equipment, keyboards, electronics, and more.
                 Every product pre-vetted for quality and market demand.
               </p>
               <ul className="mt-4 space-y-2 text-sm text-gray-600">
@@ -363,7 +363,7 @@ export default function Home() {
         title="Ready to Start?"
         description="No inventory investment. No warehousing. No logistics headaches. Just products ready to sell and infrastructure ready to ship."
         primaryText="Get Your Free API Key"
-        primaryHref="#signup"
+        primaryHref="https://dashboard.btab.app/register"
         secondaryText="Browse Product Catalog"
         secondaryHref="/products"
         dark

@@ -29,10 +29,10 @@ export default function Header() {
             <Link href="/api-docs" className="text-gray-700 hover:text-btab-primary transition-colors">
               API Docs
             </Link>
-            <Link href="https://vendors.btab.app" className="text-gray-700 hover:text-btab-primary transition-colors">
+            <Link href="https://dashboard.btab.app" className="text-gray-700 hover:text-btab-primary transition-colors">
               Vendor Dashboard
             </Link>
-            <Link href="#signup" className="btn-primary">
+            <Link href="https://dashboard.btab.app/register" className="btn-primary">
               Get Started
             </Link>
           </div>
@@ -68,10 +68,10 @@ export default function Header() {
             <Link href="/api-docs" className="block text-gray-700 hover:text-btab-primary transition-colors">
               API Docs
             </Link>
-            <Link href="https://vendors.btab.app" className="block text-gray-700 hover:text-btab-primary transition-colors">
+            <Link href="https://dashboard.btab.app" className="block text-gray-700 hover:text-btab-primary transition-colors">
               Vendor Dashboard
             </Link>
-            <Link href="#signup" className="btn-primary block text-center">
+            <Link href="https://dashboard.btab.app/register" className="btn-primary block text-center">
               Get Started
             </Link>
           </div>

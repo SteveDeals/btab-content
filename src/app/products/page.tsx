@@ -2,8 +2,8 @@ import Link from 'next/link'
 import CTA from '@/components/CTA'
 
 export const metadata = {
-  title: 'Products | Btab - 52+ Premium Products Ready to Sell',
-  description: '52+ curated products across music equipment, keyboards, and electronics. Transparent pricing and healthy margins.',
+  title: 'Products | Btab - 1000s of Premium Products Ready to Sell',
+  description: '1000s of curated products across music equipment, keyboards, and electronics. Transparent pricing and healthy margins.',
 }
 
 export default function Products() {
@@ -11,7 +11,7 @@ export default function Products() {
     <>
       <section className="section-padding bg-gradient-to-br from-btab-primary to-btab-secondary text-white">
         <div className="section-container text-center">
-          <h1 className="heading-xl mb-4">52+ Premium Products Ready to Sell</h1>
+          <h1 className="heading-xl mb-4">1000s of Premium Products Ready to Sell</h1>
           <p className="text-xl text-blue-100">Curated. Pre-vetted. Ready for your store.</p>
         </div>
       </section>
@@ -75,7 +75,7 @@ export default function Products() {
         title="Ready to Browse the Full Catalog?"
         description="Sign up free to access complete product details, high-resolution images, and real-time inventory status."
         primaryText="Create Free Account"
-        primaryHref="#signup"
+        primaryHref="https://dashboard.btab.app/register"
         dark
       />
     </>

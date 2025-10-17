@@ -31,7 +31,7 @@ export default function HowItWorks() {
                 step: 2,
                 title: 'Browse the Catalog',
                 time: '15-30 minutes',
-                description: 'Explore 52+ premium products with detailed specs, wholesale prices, and suggested retail prices.',
+                description: 'Explore 1000s of premium products with detailed specs, wholesale prices, and suggested retail prices.',
                 details: ['High-res product images', 'Detailed specifications', 'Margin calculations', 'Inventory status']
               },
               {
@@ -112,7 +112,7 @@ export default function HowItWorks() {
         title="Ready to Get Started?"
         description="Join successful vendors earning $5K-$50K+/month with zero inventory investment."
         primaryText="Create Free Account"
-        primaryHref="#signup"
+        primaryHref="https://dashboard.btab.app/register"
         secondaryText="View Pricing"
         secondaryHref="/pricing"
         dark
