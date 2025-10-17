@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  marketing-site:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: btab_marketing
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+    networks:
+      - traefik-network
+    labels:
+      # Enable Traefik
+      - "traefik.enable=true"
+
+      # HTTP Routers for btab.app and www.btab.app
+      - "traefik.http.routers.btab-marketing.rule=Host(`btab.app`) || Host(`www.btab.app`)"
+      - "traefik.http.routers.btab-marketing.entrypoints=websecure"
+      - "traefik.http.routers.btab-marketing.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.btab-marketing.service=btab-marketing"
+
+      # Service definition
+      - "traefik.http.services.btab-marketing.loadbalancer.server.port=3000"
+
+      # Security headers middleware
+      - "traefik.http.middlewares.btab-marketing-security.headers.sslredirect=true"
+      - "traefik.http.middlewares.btab-marketing-security.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.btab-marketing-security.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.btab-marketing-security.headers.stsPreload=true"
+      - "traefik.http.middlewares.btab-marketing-security.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.btab-marketing-security.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.btab-marketing-security.headers.referrerPolicy=strict-origin-when-cross-origin"
+
+      # WWW redirect middleware (redirect www to non-www)
+      - "traefik.http.middlewares.btab-www-redirect.redirectregex.regex=^https://www\\.btab\\.app/(.*)"
+      - "traefik.http.middlewares.btab-www-redirect.redirectregex.replacement=https://btab.app/$${1}"
+      - "traefik.http.middlewares.btab-www-redirect.redirectregex.permanent=true"
+
+      # Apply middlewares
+      - "traefik.http.routers.btab-marketing.middlewares=btab-www-redirect,btab-marketing-security"
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512MB
+        reservations:
+          cpus: '0.5'
+          memory: 256MB
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  traefik-network:
+    external: true

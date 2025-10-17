@@ -1,0 +1,80 @@
+name: Deploy Marketing Site to Staging
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to Staging Environment
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.BTAB_VPS_KEY }}
+
+      - name: Add VPS to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.BTAB_VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Staging VPS
+        env:
+          VPS_USER: ${{ secrets.BTAB_VPS_USER }}
+          VPS_HOST: ${{ secrets.BTAB_VPS_HOST }}
+          DEPLOY_PATH: /home/sd/dev/playlround/btab-marketing-site-staging
+          REPO: ${{ github.repository }}
+        run: |
+          ssh $VPS_USER@$VPS_HOST bash << 'ENDSSH'
+            set -e
+            DEPLOY_PATH="${DEPLOY_PATH}"
+            REPO="${REPO}"
+
+            echo "📦 Deploying develop branch to staging..."
+            if [ ! -d "$DEPLOY_PATH/.git" ]; then
+              echo "Setting up staging directory for the first time..."
+              mkdir -p "$DEPLOY_PATH"
+              cd "$DEPLOY_PATH"
+              git clone git@github.com:$REPO.git .
+            else
+              cd "$DEPLOY_PATH"
+            fi
+
+            git fetch origin develop
+            git checkout develop
+            git pull origin develop
+
+            echo "🛑 Stopping existing staging container..."
+            docker-compose down || true
+
+            echo "🐳 Building and starting staging site..."
+            docker-compose up -d --build
+
+            echo "⏳ Waiting for site to be ready..."
+            sleep 10
+
+            echo "✅ Staging deployment complete!"
+            docker-compose ps
+          ENDSSH
+
+      - name: Verify staging deployment
+        run: |
+          sleep 10
+          echo "✅ Staging deployment complete! Test at: https://staging-marketing.btab.app"
