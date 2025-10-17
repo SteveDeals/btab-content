@@ -60,16 +60,16 @@ jobs:
             git pull origin main
 
             echo "🛑 Stopping existing marketing site container..."
-            docker-compose down || true
+            docker compose down || true
 
             echo "🐳 Building and starting marketing site..."
-            docker-compose up -d --build
+            docker compose up -d --build
 
             echo "⏳ Waiting for site to be ready..."
             sleep 10
 
             echo "✅ Production deployment complete!"
-            docker-compose ps
+            docker compose ps
 
             echo ""
             echo "🌐 Marketing site is now live at:"
