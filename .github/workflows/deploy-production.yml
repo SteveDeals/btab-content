@@ -42,10 +42,8 @@ jobs:
           DEPLOY_PATH: /home/adminuser/btab-marketing-site
           REPO: ${{ github.repository }}
         run: |
-          ssh $VPS_USER@$VPS_HOST bash << 'ENDSSH'
+          ssh $VPS_USER@$VPS_HOST "DEPLOY_PATH=$DEPLOY_PATH REPO=$REPO bash -s" << 'ENDSSH'
             set -e
-            DEPLOY_PATH="${DEPLOY_PATH}"
-            REPO="${REPO}"
 
             echo "📦 Deploying main branch to production (btab.app)..."
             if [ ! -d "$DEPLOY_PATH/.git" ]; then
