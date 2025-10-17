@@ -39,7 +39,7 @@ jobs:
         env:
           VPS_USER: ${{ secrets.BTAB_VPS_USER }}
           VPS_HOST: ${{ secrets.BTAB_VPS_HOST }}
-          DEPLOY_PATH: /home/sd/dev/playlround/btab-marketing-site
+          DEPLOY_PATH: /home/adminuser/btab-marketing-site
           REPO: ${{ github.repository }}
         run: |
           ssh $VPS_USER@$VPS_HOST bash << 'ENDSSH'
